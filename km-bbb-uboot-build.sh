@@ -92,8 +92,10 @@ if [ -f .config ] ; then
 	echo ".config file is found. skip configuration"
 else
 	echo ".config file not found. To configure the board"
-        echo "make ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- am335x_evm_defconfig"
-        make ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- am335x_evm_defconfig
+#        echo "make ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- am335x_evm_defconfig"
+#        make ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- am335x_evm_defconfig
+echo "make ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- km_bbb_am335x_defconfig"
+        make ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- km_bbb_am335x_defconfig
 fi
 echo "";echo""
 
