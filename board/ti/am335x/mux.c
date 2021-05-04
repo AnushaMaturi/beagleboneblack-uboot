@@ -32,7 +32,7 @@ static struct module_pin_mux lcd_pin_mux[] = {
         {OFFSET(lcd_hsync), (MODE(7) | PULLUDEN)},   /* GPIO2_23 */    //-->KM-LCD_RW
         {OFFSET(lcd_data13), (MODE(0))},             /* lcd_data13 */ // By default disable Buzzer
         {OFFSET(lcd_data14), (MODE(7))},             /* lcd_data14 */ // enable USER LED
-        {OFFSET(lcd_data15), (MODE(0))},             /* lcd_data15 */ // Bydefault disable USER SW
+        {OFFSET(lcd_data15), (MODE(7) | RXACTIVE | PULLUDEN | PULLDOWN_EN)},             /* lcd_data15 */ // enable +ve level ENTER SW
 
         {-1},
 };
