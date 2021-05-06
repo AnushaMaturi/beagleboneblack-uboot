@@ -231,6 +231,7 @@ static int omap_gpio_direction_input(struct udevice *dev, unsigned offset)
 {
 	struct gpio_bank *bank = dev_get_priv(dev);
 
+        printf("%s, %s, %d\n", __FILE__, __func__, __LINE__);
 	/* Configure GPIO direction as input. */
 	_set_gpio_direction(bank, offset, 1);
 
@@ -255,6 +256,7 @@ static int omap_gpio_get_value(struct udevice *dev, unsigned offset)
 {
 	struct gpio_bank *bank = dev_get_priv(dev);
 
+        printf("%s, %s, %d\n", __FILE__, __func__, __LINE__);
 	return _get_gpio_value(bank, offset);
 }
 
@@ -264,6 +266,7 @@ static int omap_gpio_set_value(struct udevice *dev, unsigned offset,
 {
 	struct gpio_bank *bank = dev_get_priv(dev);
 
+        printf("%s, %s, %d\n", __FILE__, __func__, __LINE__);
 	_set_gpio_dataout(bank, offset, value);
 
 	return 0;

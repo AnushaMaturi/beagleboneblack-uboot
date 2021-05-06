@@ -303,6 +303,7 @@ int gpio_direction_input(unsigned gpio)
 	struct gpio_desc desc;
 	int ret;
 
+        printf("%s, %s, %d\n", __FILE__, __func__, __LINE__);
 	ret = gpio_to_device(gpio, &desc);
 	if (ret)
 		return ret;
@@ -327,6 +328,7 @@ int gpio_direction_output(unsigned gpio, int value)
 	struct gpio_desc desc;
 	int ret;
 
+        printf("%s, %s, %d\n", __FILE__, __func__, __LINE__);
 	ret = gpio_to_device(gpio, &desc);
 	if (ret)
 		return ret;
@@ -343,6 +345,7 @@ int dm_gpio_get_value(const struct gpio_desc *desc)
 	int value;
 	int ret;
 
+        printf("%s, %s, %d\n", __FILE__, __func__, __LINE__);
 	ret = check_reserved(desc, "get_value");
 	if (ret)
 		return ret;
@@ -356,6 +359,7 @@ int dm_gpio_set_value(const struct gpio_desc *desc, int value)
 {
 	int ret;
 
+        printf("%s, %s, %d\n", __FILE__, __func__, __LINE__);
 	ret = check_reserved(desc, "set_value");
 	if (ret)
 		return ret;
@@ -448,6 +452,7 @@ int gpio_get_value(unsigned gpio)
 
 	struct gpio_desc desc;
 
+        printf("%s, %s, %d\n", __FILE__, __func__, __LINE__);
 	ret = gpio_to_device(gpio, &desc);
 	if (ret)
 		return ret;
