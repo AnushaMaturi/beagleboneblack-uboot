@@ -57,10 +57,12 @@ static void _set_gpio_direction(const struct gpio_bank *bank, int gpio,
 	void *reg = bank->base;
 	u32 l;
 
-        printf("%s, %s, %d\n", __FILE__, __func__, __LINE__);
+
 	reg += OMAP_GPIO_OE;
 
 	l = __raw_readl(reg);
+	
+        printf("%s, %s, %d, Reg add: %x value:%x\n", __FILE__, __func__, __LINE__,(unsigned int)reg, l);
 	if (is_input)
 		l |= 1 << gpio;
 	else
@@ -80,7 +82,9 @@ static int _get_gpio_direction(const struct gpio_bank *bank, int gpio)
 	reg += OMAP_GPIO_OE;
 
 	v = __raw_readl(reg);
+      
 
+        printf("%s, %s, %d, reg: %x\n", __FILE__, __func__, __LINE__, (unsigned int )reg);
 	if (v & (1 << gpio))
 		return OMAP_GPIO_DIR_IN;
 	else
@@ -99,8 +103,8 @@ static void _set_gpio_dataout(const struct gpio_bank *bank, int gpio,
 		reg += OMAP_GPIO_CLEARDATAOUT;
 
 	l = 1 << gpio;
-
-        printf("%s, %s, %d, \n", __FILE__, __func__, __LINE__);
+	
+        printf("%s, %s, %d, Reg add: %x value:%x\n", __FILE__, __func__, __LINE__,(unsigned int)reg, l);
 	__raw_writel(l, reg);
 }
 
@@ -121,6 +125,7 @@ static int _get_gpio_value(const struct gpio_bank *bank, int gpio)
 		return -1;
 	}
 
+        printf("%s, %s, %d, offset: %x\n", __FILE__, __func__, __LINE__, (unsigned int )reg);
 	return (__raw_readl(reg) & (1 << gpio)) != 0;
 }
 
