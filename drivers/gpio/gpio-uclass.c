@@ -147,7 +147,8 @@ int dm_gpio_request(struct gpio_desc *desc, const char *label)
 	struct gpio_dev_priv *uc_priv;
 	char *str;
 	int ret;
-
+        
+        printf("%s, %s, %d\n", __FILE__, __func__, __LINE__);
 	uc_priv = dev_get_uclass_priv(dev);
 	if (uc_priv->name[desc->offset])
 		return -EBUSY;
@@ -197,8 +198,8 @@ int gpio_request(unsigned gpio, const char *label)
 {
 	struct gpio_desc desc;
 	int ret;
-
-	ret = gpio_to_device(gpio, &desc);
+	ret = gpio_to_device(gpio, &desc);	
+        printf("%s, %s, %d\n", __FILE__, __func__, __LINE__, &ret);
 	if (ret)
 		return ret;
 

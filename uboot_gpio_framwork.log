@@ -1,0 +1,13 @@
+Anusha=> gpio set 10
+
+cmd/gpio.c, do_gpio, 129
+----------------------------------------------------------------------------
+this is DM layer - HW independent 
+drivers/gpio/gpio-uclass.c, gpio_request, 202, return value of gpio to device: -1644995296
+drivers/gpio/gpio-uclass.c, dm_gpio_request, 151
+---------------------------------------------------------------------------
+This layer is HW dependent layer
+drivers/gpio/omap_gpio.c, omap_gpio_direction_output, 246, offset: 10, value: 1
+drivers/gpio/omap_gpio.c, _set_gpio_dataout, 103, 
+drivers/gpio/omap_gpio.c, _set_gpio_direction, 60
+
