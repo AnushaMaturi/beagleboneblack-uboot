@@ -22,6 +22,7 @@ enum gpio_cmd {
 	GPIOC_SET,
 	GPIOC_CLEAR,
 	GPIOC_TOGGLE,
+	GPIOC_BLINK,
 };
 
 #if defined(CONFIG_DM_GPIO) && !defined(gpio_status)
@@ -121,7 +122,9 @@ static int do_gpio(cmd_tbl_t *cmdtp, int flag, int argc, char * const argv[])
 	enum gpio_cmd sub_cmd;
 	int value;
 	const char *str_cmd, *str_gpio = NULL;
-	int ret;
+	int ret,loop;
+	bool i = false;
+
 #ifdef CONFIG_DM_GPIO
 	bool all = false;
 #endif
@@ -172,6 +175,9 @@ static int do_gpio(cmd_tbl_t *cmdtp, int flag, int argc, char * const argv[])
 	case 't':
 		sub_cmd = GPIOC_TOGGLE;
 		break;
+	case 'b':
+	        sub_cmd = GPIOC_BLINK;
+	        break;	
 	default:
 		goto show_usage;
 	}
@@ -206,7 +212,16 @@ static int do_gpio(cmd_tbl_t *cmdtp, int flag, int argc, char * const argv[])
 	if (sub_cmd == GPIOC_INPUT) {
 		gpio_direction_input(gpio);
 		value = gpio_get_value(gpio);
-	} else {
+	}
+        else if (sub_cmd == GPIOC_BLINK) {
+              for(loop = 0; loop <20; loop++)
+	      {  
+                   i = !i;
+		   gpio_set_value(gpio,i);
+	           mdelay(100);
+	      }
+	}
+	else {
 		switch (sub_cmd) {
 		case GPIOC_SET:
 			value = 1;
@@ -244,8 +259,8 @@ static int do_gpio(cmd_tbl_t *cmdtp, int flag, int argc, char * const argv[])
 	return value;
 }
 
-U_BOOT_CMD(gpio, 4, 1, do_gpio,
+U_BOOT_CMD(gpio, 5, 1, do_gpio,
 	   "query and control gpio pins",
-	   "<input|set|clear|toggle> <pin>\n"
+	   "<input|set|clear|toggle|blink> <pin> <on/off>\n"
 	   "    - input/set/clear/toggle the specified pin\n"
 	   "gpio status [-a] [<bank> | <pin>]  - show [all/claimed] GPIOs");
