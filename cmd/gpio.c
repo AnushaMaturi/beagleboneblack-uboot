@@ -11,6 +11,7 @@
 #include <errno.h>
 #include <dm.h>
 #include <asm/gpio.h>
+#include <console.h>
 
 __weak int name_to_gpio(const char *name)
 {
@@ -214,12 +215,24 @@ static int do_gpio(cmd_tbl_t *cmdtp, int flag, int argc, char * const argv[])
 		value = gpio_get_value(gpio);
 	}
         else if (sub_cmd == GPIOC_BLINK) {
-              for(loop = 0; loop <20; loop++)
+              /*for(loop = 0; loop <20; loop++)
 	      {  
                    i = !i;
 		   gpio_set_value(gpio,i);
 	           mdelay(100);
-	      }
+  	      }*/
+              
+	      while(true)
+	      {  
+                   i = !i;
+		   gpio_set_value(gpio,i);
+	           mdelay(100);
+
+		   if(ctrlc()){
+			puts("\nAborted\n");
+	     		return -EINTR;
+		   }		
+  	      }
 	}
 	else {
 		switch (sub_cmd) {

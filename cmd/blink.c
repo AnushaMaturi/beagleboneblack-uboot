@@ -11,7 +11,7 @@
 #include <errno.h>
 #include <dm.h>
 #include <asm/gpio.h>
-
+#include <console.h>
 
 
 static int do_blink(cmd_tbl_t *cmdtp, int flag, int argc, char * const argv[])
@@ -19,22 +19,15 @@ static int do_blink(cmd_tbl_t *cmdtp, int flag, int argc, char * const argv[])
 
 #if 1	
 	unsigned int gpio;
-	enum gpio_cmd sub_cmd;
-	int value;
-	const char *str_cmd, *str_gpio = NULL;
+	const char *str_gpio = NULL;
 	int ret,loop;
 	bool i = false;
 
-#ifdef CONFIG_DM_GPIO
-	bool all = false;
-#endif
-
-        printf("%s, %s, %d\n", __FILE__, __func__, __LINE__);
-
-	if (argc < 2)
+	if (argc < 1)
  show_usage:
 		return CMD_RET_USAGE;
-	str_gpio = *argv[1];
+
+	str_gpio = argv[1];
 
 
 	if (!str_gpio)
@@ -69,26 +62,49 @@ static int do_blink(cmd_tbl_t *cmdtp, int flag, int argc, char * const argv[])
 
 	/* finally, let's do it: set direction and exec command */
 	
-              for(loop = 0; loop <20; loop++)
+            /*  for(loop = 0; loop <20; loop++)
 	      {  
                    i = !i;
-		   gpio_set_value(gpio,i);
+		   gpio_direction_output(gpio,i);
 	           mdelay(100);
-	      }
+	      }*/
+
+	while(true)
+        {
+            i = !i;
+            gpio_set_value(gpio,i);
+            mdelay(100);
+
+            if(ctrlc()){
+                puts("\nAborted\n");
+                return -EINTR;
+            }
+         }
 	if (ret != -EBUSY)
                 gpio_free(gpio);
 	      return 0;
 #endif
 #if 0
-	int ret, loop;
-	bool i;
-
-	      for(loop = 0; loop <20; loop++)
-              {  
+        //int ret, loop;
+	bool i=0;
+        
+	 /* for(loop = 0; loop <20; loop++)
+            {  
                    i = !i;
                    gpio_direction_output(10,i);
                    mdelay(100);
-              }
+            }*/
+	while(true)
+        {
+            i = !i;
+            gpio_set_value(10,i);
+            mdelay(100);
+
+            if(ctrlc()){
+                puts("\nAborted\n");
+                return -EINTR;
+            }
+         }
 return 0;
 #endif
 }
@@ -96,3 +112,4 @@ return 0;
 U_BOOT_CMD(blink, 2, 1, do_blink,
 	   "blink  gpio pins",
 	   "<blink> <pin> \n");
+}
