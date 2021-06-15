@@ -112,4 +112,4 @@ return 0;
 U_BOOT_CMD(blink, 2, 1, do_blink,
 	   "blink  gpio pins",
 	   "<blink> <pin> \n");
-}
+
