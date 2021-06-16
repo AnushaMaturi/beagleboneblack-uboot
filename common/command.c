@@ -90,7 +90,7 @@ cmd_tbl_t *find_cmd_tbl(const char *cmd, cmd_tbl_t *table, int table_len)
 	const char *p;
 	int len;
 	int n_found = 0;
-
+        printf("%s, %s, %d\n", __FILE__, __func__, __LINE__);
 	if (!cmd)
 		return NULL;
 	/*

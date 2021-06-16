@@ -12,6 +12,7 @@
 
 struct i2c_adapter *i2c_get_adapter(int index)
 {
+        printf("%s, %s, %d\n", __FILE__, __func__, __LINE__);
 	struct i2c_adapter *i2c_adap_p = ll_entry_start(struct i2c_adapter,
 						i2c);
 	int max = ll_entry_count(struct i2c_adapter, i2c);
@@ -236,6 +237,7 @@ unsigned int i2c_get_bus_num(void)
 int i2c_set_bus_num(unsigned int bus)
 {
 	int max;
+        printf("%s, %s, %d\n", __FILE__, __func__, __LINE__);
 
 	if ((bus == I2C_BUS) && (I2C_ADAP->init_done > 0))
 		return 0;
@@ -272,6 +274,7 @@ int i2c_set_bus_num(unsigned int bus)
  */
 int i2c_probe(uint8_t chip)
 {
+printf("%s, %s, %d\n", __FILE__, __func__, __LINE__);
 	return I2C_ADAP->probe(I2C_ADAP, chip);
 }
 

@@ -950,6 +950,7 @@ static int do_i2c_probe (cmd_tbl_t *cmdtp, int flag, int argc, char * const argv
 	int j;
 	int addr = -1;
 	int found = 0;
+        printf("%s, %s, %d\n", __FILE__, __func__, __LINE__);
 #if defined(CONFIG_SYS_I2C_NOPROBES)
 	int k, skip;
 	unsigned int bus = GET_BUS_NUM;
@@ -1807,6 +1808,7 @@ static int do_i2c_bus_num(cmd_tbl_t *cmdtp, int flag, int argc,
 {
 	int		ret = 0;
 	int	bus_no;
+        printf("%s, %s, %d\n", __FILE__, __func__, __LINE__);
 
 	if (argc == 1) {
 		/* querying current setting */
@@ -1998,6 +2000,7 @@ static __maybe_unused void i2c_reloc(void)
 static int do_i2c(cmd_tbl_t * cmdtp, int flag, int argc, char * const argv[])
 {
 	cmd_tbl_t *c;
+	printf("%s, %s, %d\n", __FILE__, __func__, __LINE__);
 
 #ifdef CONFIG_NEEDS_MANUAL_RELOC
 	i2c_reloc();

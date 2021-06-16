@@ -482,7 +482,7 @@ static int __omap24_i2c_probe(void __iomem *i2c_base, int ip_rev, int waitdelay,
 {
 	u16 status;
 	int res = 1; /* default = fail */
-
+        printf("%s, %s, %d\n", __FILE__, __func__, __LINE__);
 	if (chip == omap_i2c_read_reg(i2c_base, ip_rev, OMAP_I2C_OA_REG))
 		return res;
 
@@ -516,6 +516,7 @@ static int __omap24_i2c_probe(void __iomem *i2c_base, int ip_rev, int waitdelay,
 
 	/* Check for ACK (!NAK) */
 	if (!(status & I2C_STAT_NACK)) {
+		printf("Device found chip:%d\n",chip);
 		res = 0;				/* Device found */
 		udelay(waitdelay);/* Required by AM335X in SPL */
 		/* Abort transfer (force idle state) */
@@ -930,7 +931,7 @@ static int omap24_i2c_probe(struct i2c_adapter *adap, uchar chip)
 {
 	void __iomem *i2c_base = omap24_get_base(adap);
 	int ip_rev = omap24_get_ip_rev();
-
+        printf("%s, %s, %d\n", __FILE__, __func__, __LINE__);
 	return __omap24_i2c_probe(i2c_base, ip_rev, adap->waitdelay, chip);
 }
 
@@ -1039,7 +1040,6 @@ static int omap_i2c_probe_chip(struct udevice *bus, uint chip_addr,
 				     uint chip_flags)
 {
 	struct omap_i2c *priv = dev_get_priv(bus);
-
 	return __omap24_i2c_probe(priv->regs, priv->ip_rev, priv->waitdelay,
 				  chip_addr);
 }
@@ -1048,6 +1048,7 @@ static int omap_i2c_probe(struct udevice *bus)
 {
 	struct omap_i2c *priv = dev_get_priv(bus);
 	struct omap_i2c_platdata *plat = dev_get_platdata(bus);
+        printf("%s, %s, %d\n", __FILE__, __func__, __LINE__);
 
 	priv->speed = plat->speed;
 	priv->regs = map_physmem(plat->base, sizeof(void *),
