@@ -553,6 +553,7 @@ static int __omap24_i2c_read(void __iomem *i2c_base, int ip_rev, int waitdelay,
 {
 	int i2c_error = 0;
 	u16 status;
+        printf("%s, %s, %d\n", __FILE__, __func__, __LINE__);
 
 	if (alen < 0) {
 		puts("I2C read: addr len < 0\n");
@@ -709,6 +710,7 @@ static int __omap24_i2c_write(void __iomem *i2c_base, int ip_rev, int waitdelay,
 	u16 status;
 	int i2c_error = 0;
 	int timeout = I2C_TIMEOUT;
+        printf("%s, %s, %d\n", __FILE__, __func__, __LINE__);
 
 	if (alen < 0) {
 		puts("I2C write: addr len < 0\n");
@@ -886,6 +888,7 @@ static int omap24_i2c_read(struct i2c_adapter *adap, uchar chip, uint addr,
 {
 	void __iomem *i2c_base = omap24_get_base(adap);
 	int ip_rev = omap24_get_ip_rev();
+        printf("%s, %s, %d\n", __FILE__, __func__, __LINE__);
 
 	return __omap24_i2c_read(i2c_base, ip_rev, adap->waitdelay, chip, addr,
 				 alen, buffer, len);
@@ -896,6 +899,7 @@ static int omap24_i2c_write(struct i2c_adapter *adap, uchar chip, uint addr,
 {
 	void __iomem *i2c_base = omap24_get_base(adap);
 	int ip_rev = omap24_get_ip_rev();
+        printf("%s, %s, %d\n", __FILE__, __func__, __LINE__);
 
 	return __omap24_i2c_write(i2c_base, ip_rev, adap->waitdelay, chip, addr,
 				  alen, buffer, len);
@@ -1040,6 +1044,7 @@ static int omap_i2c_probe_chip(struct udevice *bus, uint chip_addr,
 				     uint chip_flags)
 {
 	struct omap_i2c *priv = dev_get_priv(bus);
+	printf("%s, %s, %d\n", __FILE__, __func__, __LINE__);
 	return __omap24_i2c_probe(priv->regs, priv->ip_rev, priv->waitdelay,
 				  chip_addr);
 }

@@ -217,6 +217,7 @@ void i2c_init_all(void)
  */
 unsigned int i2c_get_bus_num(void)
 {
+        printf("%s, %s, %d\n", __FILE__, __func__, __LINE__);
 	return gd->cur_i2c_bus;
 }
 
@@ -293,18 +294,21 @@ printf("%s, %s, %d\n", __FILE__, __func__, __LINE__);
 int i2c_read(uint8_t chip, unsigned int addr, int alen,
 				uint8_t *buffer, int len)
 {
+        printf("%s, %s, %d\n", __FILE__, __func__, __LINE__);
 	return I2C_ADAP->read(I2C_ADAP, chip, addr, alen, buffer, len);
 }
 
 int i2c_write(uint8_t chip, unsigned int addr, int alen,
 				uint8_t *buffer, int len)
 {
+	printf("%s, %s, %d\n", __FILE__, __func__, __LINE__);
 	return I2C_ADAP->write(I2C_ADAP, chip, addr, alen, buffer, len);
 }
 
 unsigned int i2c_set_bus_speed(unsigned int speed)
 {
 	unsigned int ret;
+
 
 	if (I2C_ADAP->set_bus_speed == NULL)
 		return 0;

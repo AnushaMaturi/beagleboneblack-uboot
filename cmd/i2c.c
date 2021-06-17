@@ -514,6 +514,7 @@ static int do_i2c_md ( cmd_tbl_t *cmdtp, int flag, int argc, char * const argv[]
 	int alen;
 	int	j, nbytes, linebytes;
 	int ret;
+        printf("%s, %s, %d\n", __FILE__, __func__, __LINE__);
 #ifdef CONFIG_DM_I2C
 	struct udevice *dev;
 #endif
@@ -806,6 +807,7 @@ mod_i2c_mem(cmd_tbl_t *cmdtp, int incrflag, int flag, int argc, char * const arg
 	int	size = 1;
 	int	nbytes;
 	int ret;
+        printf("%s, %s, %d\n", __FILE__, __func__, __LINE__);
 #ifdef CONFIG_DM_I2C
 	struct udevice *dev;
 #endif
@@ -1900,6 +1902,7 @@ static int do_i2c_bus_speed(cmd_tbl_t * cmdtp, int flag, int argc, char * const 
  */
 static int do_i2c_mm(cmd_tbl_t * cmdtp, int flag, int argc, char * const argv[])
 {
+        printf("%s, %s, %d\n", __FILE__, __func__, __LINE__);
 	return mod_i2c_mem (cmdtp, 1, flag, argc, argv);
 }
 
