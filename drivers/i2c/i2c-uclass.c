@@ -252,6 +252,7 @@ static int i2c_probe_chip(struct udevice *bus, uint chip_addr,
 	struct dm_i2c_ops *ops = i2c_get_ops(bus);
 	struct i2c_msg msg[1];
 	int ret;
+        printf("%s, %s, %d\n", __FILE__, __func__, __LINE__);
 
 	if (ops->probe_chip) {
 		ret = ops->probe_chip(bus, chip_addr, chip_flags);
@@ -374,6 +375,7 @@ int dm_i2c_probe(struct udevice *bus, uint chip_addr, uint chip_flags,
 	int ret;
 
 	*devp = NULL;
+        printf("%s, %s, %d\n", __FILE__, __func__, __LINE__);
 
 	/* First probe that chip */
 	ret = i2c_probe_chip(bus, chip_addr, chip_flags);

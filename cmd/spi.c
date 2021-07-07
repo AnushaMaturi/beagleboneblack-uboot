@@ -14,6 +14,8 @@
 #include <errno.h>
 #include <spi.h>
 
+#define KM_DEBUG
+
 /*-----------------------------------------------------------------------
  * Definitions
  */
@@ -37,6 +39,9 @@ static int do_spi_xfer(int bus, int cs)
 	struct spi_slave *slave;
 	int ret = 0;
 
+#ifdef KM_DEBUG
+	printk("%s %s %d\n", __FILE__, __func__, __LINE__);
+#endif
 #ifdef CONFIG_DM_SPI
 	char name[30], *str;
 	struct udevice *dev;
@@ -102,6 +107,9 @@ int do_spi (cmd_tbl_t *cmdtp, int flag, int argc, char * const argv[])
 	uchar tmp;
 	int   j;
 
+#ifdef KM_DEBUG
+	printk("%s %s %d\n", __FILE__, __func__, __LINE__);
+#endif
 	/*
 	 * We use the last specified parameters, unless new ones are
 	 * entered.

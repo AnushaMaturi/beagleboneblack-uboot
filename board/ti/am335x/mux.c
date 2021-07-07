@@ -103,6 +103,15 @@ static struct module_pin_mux i2c1_pin_mux[] = {
         {-1},
 };
 
+static struct module_pin_mux spi1_pin_mux[] = { 
+	{OFFSET(mcasp0_ahclkr),(MODE(3) | RXACTIVE | PULLUDEN)}, /* KM-SPI1_CS0 */ 
+	{OFFSET(mcasp0_fsx), (MODE(3) | RXACTIVE | PULLUDEN )}, /* KM-SPI1_D0 */ 
+	{OFFSET(mcasp0_axr0), (MODE(3) | PULLUP_EN | RXACTIVE )}, /* KM-SPI1_D1 */ 
+	{OFFSET(mcasp0_aclkx), (MODE(3) | RXACTIVE | PULLUP_EN)}, /* KM-SPI1_CLK */ 
+	{-1}, 
+	 };
+
+
 void km_bbb_mux(void)
 {
 	 configure_module_pin_mux(mmc0_pin_mux);
@@ -110,6 +119,7 @@ void km_bbb_mux(void)
 	 configure_module_pin_mux(lcd_pin_mux);
          configure_module_pin_mux(mii1_pin_mux);
 	 configure_module_pin_mux(i2c1_pin_mux);
+	 configure_module_pin_mux(spi1_pin_mux);
 }
 
 void enable_board_pin_mux(void)

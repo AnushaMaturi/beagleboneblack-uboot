@@ -23,7 +23,7 @@
 #include <asm/io.h>
 
 DECLARE_GLOBAL_DATA_PTR;
-
+#define KM_DEBUG
 #if defined(CONFIG_AM33XX) || defined(CONFIG_AM43XX)
 #define OMAP3_MCSPI1_BASE	0x48030100
 #define OMAP3_MCSPI2_BASE	0x481A0100
@@ -139,6 +139,9 @@ static int omap3_spi_write(struct omap3_spi_priv *priv, unsigned int len,
 	ulong start;
 	int i, chconf;
 
+#ifdef KM_DEBUG
+	printk("%s %s %d", __FILE__, __func__, __LINE__);
+#endif
 	chconf = readl(&priv->regs->channel[priv->cs].chconf);
 
 	/* Enable the channel */
@@ -194,6 +197,9 @@ static int omap3_spi_read(struct omap3_spi_priv *priv, unsigned int len,
 	int i, chconf;
 	ulong start;
 
+#ifdef KM_DEBUG
+	printk("%s %s %d", __FILE__, __func__, __LINE__);
+#endif
 	chconf = readl(&priv->regs->channel[priv->cs].chconf);
 
 	/* Enable the channel */
@@ -248,6 +254,9 @@ static int omap3_spi_txrx(struct omap3_spi_priv *priv, unsigned int len,
 	ulong start;
 	int chconf, i = 0;
 
+#ifdef KM_DEBUG
+	printk("%s %s %d", __FILE__, __func__, __LINE__);
+#endif
 	chconf = readl(&priv->regs->channel[priv->cs].chconf);
 
 	/*Enable SPI channel*/
@@ -317,6 +326,9 @@ static int _spi_xfer(struct omap3_spi_priv *priv, unsigned int bitlen,
 	unsigned int	len;
 	int ret = -1;
 
+#ifdef KM_DEBUG
+	printk("%s %s %d\n", __FILE__, __func__, __LINE__);
+#endif
 	if (priv->wordlen < 4 || priv->wordlen > 32) {
 		printf("omap3_spi: invalid wordlen %d\n", priv->wordlen);
 		return -1;
@@ -571,6 +583,9 @@ int spi_xfer(struct spi_slave *slave, unsigned int bitlen,
 {
 	struct omap3_spi_priv *priv = to_omap3_spi(slave);
 
+#ifdef KM_DEBUG
+	printk("%s %s %d\n", __FILE__, __func__, __LINE__);
+#endif
 	return _spi_xfer(priv, bitlen, dout, din, flags);
 }
 
